@@ -2,33 +2,43 @@
 #include <string>
 #include "Quadrant.h"
 
-void sickReference(bool* (& ref)[4][4]);
+void divide(bool** board, int rowBegin, int colBegin, int range);
 
 int main() {
     // Row/column
-    bool** boolArray = new bool* [16]();
+    bool** board;
+    board = new bool* [16]();
 
     for (int i = 0; i < 16; ++i) {
-        boolArray[i] = new bool[16]();
+        board[i] = new bool[16]();
     }
 
     // fixed starting point
-    boolArray[7][7] = true;
-    boolArray[7][8] = true;
-    boolArray[8][7] = true;
-    boolArray[8][8] = true;
+    board[1][1] = true;
 
-    Quadrant q1(0, 1, 0, 1);
-
-    for (int i = 0; i <= q1.getRowEnd(); ++i) {
-        for (int j = 0; j <= q1.getColEnd(); ++j) {
-            q1.setQuadrantElement(i, j, &boolArray[i][j]);
-        }
-    }
-
-    q1.setOrientation(Quadrant::Orientation::LTC);
-    q1.setIntersection();
+    divide(board, 0, 0, 7);
 }
 
+void divide(bool** board, int rowBegin, int colBegin, int range) {
+    Orientation orientation = Orientation::LTC;
+    int rowCount = 0;
+    int colCount = 0;
 
+    for (int i = 0; i < 4; ++i) {
+        Quadrant quadrant(rowBegin, colBegin, range, orientation);
+        for (int row = quadrant.getRowBegin(); row <= quadrant.getRowEnd(); ++row) {
+            for (int col = quadrant.getColBegin(); col <= quadrant.getColEnd(); ++col) {
+                quadrant.setQuadrantElement(rowCount, colCount, &board[row][col]);
+                ++colCount;
+            }
+            colCount = 0;
+            ++rowCount;
+        }
+
+        rowCount = 0;
+
+        orientation++;
+        quadrant.setIntersection();
+    }
+}
 
