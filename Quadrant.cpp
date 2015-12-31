@@ -11,9 +11,9 @@ Orientation& operator++(Orientation& orientation) {
             orientation = LBC;
             break;
         case LBC:
-            orientation = RBG;
+            orientation = RBC;
             break;
-        case RBG:
+        case RBC:
             orientation = LTC;
             break;
     }
@@ -42,15 +42,15 @@ Quadrant::Quadrant(int row, int col, int range, const Orientation& orientation) 
             colEnd = colBegin + range;
             break;
         case LBC:
-            rowBegin = row + range;
+            rowBegin = row + range + 1;
             rowEnd = rowBegin + range;
             colBegin = col;
             colEnd = col + range;
             break;
-        case RBG:
-            rowBegin = row + range;
+        case RBC:
+            rowBegin = row + range + 1;
             rowEnd = rowBegin + range;
-            colBegin = col;
+            colBegin = col + range + 1;
             colEnd = colBegin + range;
             break;
     }
@@ -63,6 +63,7 @@ void Quadrant::setQuadrantElement(int row, int col, bool* element) {
 void Quadrant::fillIntersection() {
     *intersection = true;
     hasFill = true;
+    printQuadrant();
 }
 
 void Quadrant::setIntersection() {
@@ -71,13 +72,13 @@ void Quadrant::setIntersection() {
             intersection = quadrant[rowEnd][colEnd];
             break;
         case RTC:
-            intersection = quadrant[rowEnd][colBegin];
+            intersection = quadrant[rowEnd][0];
             break;
         case LBC:
-            intersection = quadrant[rowBegin][colEnd];
+            intersection = quadrant[0][colEnd];
             break;
-        case RBG:
-            intersection = quadrant[rowBegin][colBegin];
+        case RBC:
+            intersection = quadrant[0][0];
             break;
     }
 }
@@ -107,15 +108,14 @@ int Quadrant::getRowBegin() {
 }
 
 bool Quadrant::setFill() {
-    printQuadrant();
-//    for (int row = 0; row <= (getRowEnd() - getRowBegin()); ++row) {
-//        for (int col = 0; col <= (getColEnd() - getColBegin()); ++col) {
-//            if (*quadrant[row][col]) {
-//                hasFill = true;
-//                return hasFill;
-//            }
-//        }
-//    }
+    for (int row = 0; row <= (getRowEnd() - getRowBegin()); ++row) {
+        for (int col = 0; col <= (getColEnd() - getColBegin()); ++col) {
+            if (*quadrant[row][col]) {
+                hasFill = true;
+                return hasFill;
+            }
+        }
+    }
 
     return false;
 }

@@ -4,7 +4,7 @@
 #include <vector>
 
 enum Orientation : int {
-    LTC, RTC, LBC, RBG
+    LTC, RTC, LBC, RBC
 };
 
 Orientation& operator++(Orientation& orientation);

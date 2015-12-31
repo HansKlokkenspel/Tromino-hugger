@@ -14,7 +14,7 @@ int main() {
     }
 
     // fixed starting point
-    board[1][1] = true;
+    board[1][1] = 1;
 
     divide(board, 0, 0, 7);
 
@@ -43,8 +43,9 @@ void divide(bool** board, int rowBegin, int colBegin, int range) {
         orientation++;
         quadrant.setIntersection();
 
+        quadrant.setFill();
         // If a filled in element has not been found, fill in the intersection with the other quadrants
-        if(!quadrant.setFill()){
+        if(!quadrant.hasFill){
             quadrant.fillIntersection();
         }
     }
