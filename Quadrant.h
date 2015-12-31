@@ -37,12 +37,13 @@ public:
     bool* intersection;
 
     void printQuadrant();
-private:
-
+    void fillQuadrant();
     int rowBegin;
     int rowEnd;
     int colBegin;
     int colEnd;
+
+private:
 
     Orientation orientation;
 };

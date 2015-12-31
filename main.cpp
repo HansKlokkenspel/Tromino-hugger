@@ -52,10 +52,11 @@ void divide(bool** board, int range) {
             quadrant.fillIntersection();
         }
 
-//        //Check quadrant
-//        if (!quadrant.isFilledIn() && !quadrant.checkBaseCase()) {
-//            divide(quadrant, range / 2);
-//        }
+        //Check quadrant
+        if (!quadrant.isFilledIn() && !quadrant.checkBaseCase()) {
+            divide(quadrant, range / 2);
+            return;
+        }
 
     }
 }
@@ -69,7 +70,7 @@ void divide(const Quadrant& otherQuadrant, int range) {
 
     for (int i = 0; i < 4; ++i) {
         // Init quadrant
-        Quadrant quadrant(otherQuadrant.getRowBegin(), otherQuadrant.getColBegin(), range, orientation);
+        Quadrant quadrant(otherQuadrant.rowBegin, otherQuadrant.colBegin, range, orientation);
         for (int row = quadrant.getRowBegin(); row <= quadrant.getRowEnd(); ++row) {
             for (int col = quadrant.getColBegin(); col <= quadrant.getColEnd(); ++col) {
                 quadrant.setQuadrantElement(rowCount, colCount, otherQuadrant.quadrant[row][col]);
@@ -93,8 +94,10 @@ void divide(const Quadrant& otherQuadrant, int range) {
         }
 
         //Check quadrant
-        if (!quadrant.isFilledIn() && quadrant.checkBaseCase()) {
+        if (!quadrant.isFilledIn() && !quadrant.checkBaseCase()) {
             divide(quadrant, range / 2);
+        } else {
+            quadrant.fillQuadrant();
         }
 
     }

@@ -105,7 +105,7 @@ int Quadrant::getRowBegin() const {
 }
 
 bool Quadrant::checkBaseCase() {
-    return hasFill && (rowEnd - rowBegin == 2);
+    return hasFill && (rowEnd - rowBegin == 1);
 }
 
 bool Quadrant::setFill() {
@@ -145,4 +145,14 @@ bool Quadrant::isFilledIn() {
     }
 
     return true;
+}
+
+void Quadrant::fillQuadrant() {
+    for (int row = 0; row <= (getRowEnd() - getRowBegin()); ++row) {
+        for (int col = 0; col <= (getColEnd() - getColBegin()); ++col) {
+            if (!*quadrant[row][col]) {
+                *quadrant[row][col] = true;
+            }
+        }
+    }
 }
