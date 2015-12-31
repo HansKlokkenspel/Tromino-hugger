@@ -2,7 +2,8 @@
 #include <string>
 #include "Quadrant.h"
 
-void divide(bool** board, int rowBegin, int colBegin, int range);
+void divide(bool** board, int range);
+void divide(const Quadrant& otherQuadrant, int range);
 
 int main() {
     // Row/column
@@ -16,18 +17,19 @@ int main() {
     // fixed starting point
     board[1][1] = 1;
 
-    divide(board, 0, 0, 7);
+    divide(board, 8);
 
     std::cout << "First quadrant is finished!" << std::endl;
 }
 
-void divide(bool** board, int rowBegin, int colBegin, int range) {
+void divide(bool** board, int range) {
     Orientation orientation = Orientation::LTC;
     int rowCount = 0;
     int colCount = 0;
 
     for (int i = 0; i < 4; ++i) {
-        Quadrant quadrant(rowBegin, colBegin, range, orientation);
+        // Init quadrant
+        Quadrant quadrant(1, 1, range, orientation);
         for (int row = quadrant.getRowBegin(); row <= quadrant.getRowEnd(); ++row) {
             for (int col = quadrant.getColBegin(); col <= quadrant.getColEnd(); ++col) {
                 quadrant.setQuadrantElement(rowCount, colCount, &board[row][col]);
@@ -42,14 +44,58 @@ void divide(bool** board, int rowBegin, int colBegin, int range) {
         orientation++;
         quadrant.setIntersection();
 
-        if(!quadrant.isFilledIn() && quadrant.checkBaseCase()){
+        // End init
 
-        }
-
-        // If a filled in element has not been found, fill in the intersection with the other quadrants
-        if(!quadrant.setFill()){
+        //Update quadrant
+        if (!quadrant.setFill()) {
+            // If a filled in element has not been found, fill in the intersection with the other quadrants
             quadrant.fillIntersection();
         }
+
+//        //Check quadrant
+//        if (!quadrant.isFilledIn() && !quadrant.checkBaseCase()) {
+//            divide(quadrant, range / 2);
+//        }
+
     }
 }
 
+
+void divide(const Quadrant& otherQuadrant, int range) {
+    Orientation orientation = Orientation::LTC;
+
+    int rowCount = 0;
+    int colCount = 0;
+
+    for (int i = 0; i < 4; ++i) {
+        // Init quadrant
+        Quadrant quadrant(otherQuadrant.getRowBegin(), otherQuadrant.getColBegin(), range, orientation);
+        for (int row = quadrant.getRowBegin(); row <= quadrant.getRowEnd(); ++row) {
+            for (int col = quadrant.getColBegin(); col <= quadrant.getColEnd(); ++col) {
+                quadrant.setQuadrantElement(rowCount, colCount, otherQuadrant.quadrant[row][col]);
+                ++colCount;
+            }
+            colCount = 0;
+            ++rowCount;
+        }
+
+        rowCount = 0;
+
+        orientation++;
+        quadrant.setIntersection();
+
+        // End init
+
+        //Update quadrant
+        if (!quadrant.setFill()) {
+            // If a filled in element has not been found, fill in the intersection with the other quadrants
+            quadrant.fillIntersection();
+        }
+
+        //Check quadrant
+        if (!quadrant.isFilledIn() && quadrant.checkBaseCase()) {
+            divide(quadrant, range / 2);
+        }
+
+    }
+}

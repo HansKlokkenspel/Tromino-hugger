@@ -23,10 +23,10 @@ public:
     void fillIntersection();
     void setIntersection();
 
-    int getColEnd();
-    int getRowEnd();
-    int getColBegin();
-    int getRowBegin();
+    int getColEnd() const;
+    int getRowEnd() const;
+    int getColBegin() const;
+    int getRowBegin() const;
 
     bool checkBaseCase();
     bool isFilledIn();

@@ -28,6 +28,7 @@ Orientation operator++(Orientation& orientation, int) {
 
 Quadrant::Quadrant(int row, int col, int range, const Orientation& orientation) :
         orientation(orientation) {
+    range -= 1;
     switch (orientation) {
         case LTC:
             rowBegin = row;
@@ -69,13 +70,13 @@ void Quadrant::fillIntersection() {
 void Quadrant::setIntersection() {
     switch (orientation) {
         case LTC:
-            intersection = quadrant[rowEnd][colEnd];
+            intersection = quadrant[rowEnd -1][colEnd - 1];
             break;
         case RTC:
-            intersection = quadrant[rowEnd][0];
+            intersection = quadrant[rowEnd - 1][0];
             break;
         case LBC:
-            intersection = quadrant[0][colEnd];
+            intersection = quadrant[0][colEnd - 1];
             break;
         case RBC:
             intersection = quadrant[0][0];
@@ -87,24 +88,24 @@ void Quadrant::setOrientation(const Orientation& orientation) {
     this->orientation = orientation;
 }
 
-int Quadrant::getColEnd() {
-    return colEnd;
+int Quadrant::getColEnd() const {
+    return colEnd - 1;
 }
 
-int Quadrant::getRowEnd() {
-    return rowEnd;
+int Quadrant::getRowEnd() const {
+    return rowEnd - 1;
+}
+
+int Quadrant::getColBegin() const {
+    return colBegin - 1;
+}
+
+int Quadrant::getRowBegin() const {
+    return rowBegin - 1;
 }
 
 bool Quadrant::checkBaseCase() {
     return hasFill && (rowEnd - rowBegin == 2);
-}
-
-int Quadrant::getColBegin() {
-    return colBegin;
-}
-
-int Quadrant::getRowBegin() {
-    return rowBegin;
 }
 
 bool Quadrant::setFill() {
