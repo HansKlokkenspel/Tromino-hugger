@@ -17,6 +17,9 @@ int main() {
     board[1][1] = true;
 
     divide(board, 0, 0, 7);
+
+    std::cout << "First quadrant is finished!" << std::endl;
+
 }
 
 void divide(bool** board, int rowBegin, int colBegin, int range) {
@@ -39,6 +42,11 @@ void divide(bool** board, int rowBegin, int colBegin, int range) {
 
         orientation++;
         quadrant.setIntersection();
+
+        // If a filled in element has not been found, fill in the intersection with the other quadrants
+        if(!quadrant.setFill()){
+            quadrant.fillIntersection();
+        }
     }
 }
 

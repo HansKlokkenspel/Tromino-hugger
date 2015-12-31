@@ -1,3 +1,5 @@
+#include <iostream>
+#include <iomanip>
 #include "Quadrant.h"
 
 Orientation& operator++(Orientation& orientation) {
@@ -60,6 +62,7 @@ void Quadrant::setQuadrantElement(int row, int col, bool* element) {
 
 void Quadrant::fillIntersection() {
     *intersection = true;
+    hasFill = true;
 }
 
 void Quadrant::setIntersection() {
@@ -101,4 +104,32 @@ int Quadrant::getColBegin() {
 
 int Quadrant::getRowBegin() {
     return rowBegin;
+}
+
+bool Quadrant::setFill() {
+    printQuadrant();
+//    for (int row = 0; row <= (getRowEnd() - getRowBegin()); ++row) {
+//        for (int col = 0; col <= (getColEnd() - getColBegin()); ++col) {
+//            if (*quadrant[row][col]) {
+//                hasFill = true;
+//                return hasFill;
+//            }
+//        }
+//    }
+
+    return false;
+}
+
+void Quadrant::printQuadrant() {
+    std::cout << "--------------" << std::endl;
+    for (int row = 0; row <= (getRowEnd() - getRowBegin()); ++row) {
+        if (row) { std::cout << "--------------" << std::endl; }
+        for (int col = 0; col <= (getColEnd() - getColBegin()); ++col) {
+            if (col) { std::cout << "-"; }
+            std::cout << *quadrant[row][col];
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << "End of quadrant: " << orientation << std::endl;
 }

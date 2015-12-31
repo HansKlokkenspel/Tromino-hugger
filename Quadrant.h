@@ -29,10 +29,13 @@ public:
     int getRowBegin();
 
     bool checkBaseCase();
+    bool setFill();
 
-    bool hasFill;
+    bool hasFill = false;
     bool* quadrant[8][8];
     bool* intersection;
+
+    void printQuadrant();
 private:
 
     int rowBegin;
