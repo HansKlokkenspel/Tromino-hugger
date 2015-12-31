@@ -133,3 +133,15 @@ void Quadrant::printQuadrant() {
 
     std::cout << "End of quadrant: " << orientation << std::endl;
 }
+
+bool Quadrant::isFilledIn() {
+    for (int row = 0; row <= (getRowEnd() - getRowBegin()); ++row) {
+        for (int col = 0; col <= (getColEnd() - getColBegin()); ++col) {
+            if (!*quadrant[row][col]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}

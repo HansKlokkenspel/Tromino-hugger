@@ -29,6 +29,7 @@ public:
     int getRowBegin();
 
     bool checkBaseCase();
+    bool isFilledIn();
     bool setFill();
 
     bool hasFill = false;
