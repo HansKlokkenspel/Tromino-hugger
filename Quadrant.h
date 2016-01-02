@@ -13,7 +13,7 @@ Orientation operator++(Orientation& orientation, int);
 
 class Quadrant {
 public:
-    Quadrant(const Quadrant&) = delete;
+//    Quadrant(const Quadrant&) = delete;
     Quadrant& operator=(const Quadrant&) = delete;
     Quadrant(int row, int col, int range, const Orientation& orientation);
 
