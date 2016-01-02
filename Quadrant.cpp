@@ -67,16 +67,16 @@ void Quadrant::fillIntersection() {
     printQuadrant();
 }
 
-void Quadrant::setIntersection() {
+void Quadrant::setIntersection(int range) {
     switch (orientation) {
         case LTC:
-            intersection = quadrant[rowEnd -1][colEnd - 1];
+            intersection = quadrant[range -1][range - 1];
             break;
         case RTC:
-            intersection = quadrant[rowEnd - 1][0];
+            intersection = quadrant[range - 1][0];
             break;
         case LBC:
-            intersection = quadrant[0][colEnd - 1];
+            intersection = quadrant[0][range - 1];
             break;
         case RBC:
             intersection = quadrant[0][0];

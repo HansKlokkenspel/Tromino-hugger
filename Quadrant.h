@@ -21,7 +21,7 @@ public:
     void setOrientation(const Orientation& orientation);
 
     void fillIntersection();
-    void setIntersection();
+    void setIntersection(int range);
 
     int getColEnd() const;
     int getRowEnd() const;
