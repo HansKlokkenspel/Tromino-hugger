@@ -36,7 +36,6 @@ public:
     bool* quadrant[8][8];
     bool* intersection;
 
-    void printQuadrant();
     void fillQuadrant();
     int rowBegin;
     int rowEnd;

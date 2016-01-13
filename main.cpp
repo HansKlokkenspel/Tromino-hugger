@@ -16,19 +16,20 @@ int main() {
     }
 
     // fixed starting point
-    board[5][7] = 1;
-
+    board[14][3] = 1;
     divide(board, 8);
+    board[14][3] = 0;
 
-    std::cout << "--------------" << std::endl;
     for (int i = 0; i < 16; ++i) {
-        if (i) { std::cout << "--------------" << std::endl; }
+        std::cout << "------------------------------------" << std::endl;
+        std::cout << "|";
         for (int j = 0; j < 16; ++j) {
-            if (j) { std::cout << "-"; }
-            std::cout << board[i][j] << std::endl;
+            std::cout << board[i][j];
+            std::cout << "-";
         }
-        std::cout << std::endl;
+        std::cout << "|" << std::endl;
     }
+    std::cout << "------------------------------------" << std::endl;
 }
 
 void divide(bool** board, int range) {
@@ -90,11 +91,12 @@ void divide(const Quadrant& otherQuadrant, int range, bool** board) {
             ++rowCount;
         }
 
-        rowCount = 0;
-
         orientation++;
         quadrant.setIntersection(range);
         quadrants.push_front(quadrant);
+
+        rowCount = 0;
+
         // End init
     }
 

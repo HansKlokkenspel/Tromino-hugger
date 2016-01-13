@@ -64,7 +64,6 @@ void Quadrant::setQuadrantElement(int row, int col, bool* element) {
 void Quadrant::fillIntersection() {
     *intersection = true;
     hasFill = true;
-    printQuadrant();
 }
 
 void Quadrant::setIntersection(int range) {
@@ -119,20 +118,6 @@ bool Quadrant::setFill() {
     }
 
     return false;
-}
-
-void Quadrant::printQuadrant() {
-    std::cout << "--------------" << std::endl;
-    for (int row = 0; row <= (getRowEnd() - getRowBegin()); ++row) {
-        if (row) { std::cout << "--------------" << std::endl; }
-        for (int col = 0; col <= (getColEnd() - getColBegin()); ++col) {
-            if (col) { std::cout << "-"; }
-            std::cout << *quadrant[row][col];
-        }
-        std::cout << std::endl;
-    }
-
-    std::cout << "End of quadrant: " << orientation << std::endl;
 }
 
 bool Quadrant::isFilledIn() {
